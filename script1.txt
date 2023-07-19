@@ -1,0 +1,36 @@
+const { exec } = require('child_process');
+
+function deploy() {
+  // Step 1: Clone the Git repository
+  exec('git clone <repository-url> <destination-folder>', (cloneError) => {
+    if (cloneError) {
+      console.error('Failed to clone the repository:', cloneError);
+      return;
+    }
+
+    // Step 2: Enter the cloned repository directory
+    process.chdir('<destination-folder>');
+
+    // Step 3: Install dependencies (if applicable)
+    exec('npm install', (installError) => {
+      if (installError) {
+        console.error('Failed to install dependencies:', installError);
+        return;
+      }
+
+      // Step 4: Build or prepare the project (if applicable)
+      // For example: exec('npm run build', (buildError) => { ... });
+
+      // Step 5: Start the deployment process
+      // Add the commands needed to deploy your project (e.g., copy files, start a server, etc.)
+
+      // Example: Copy files to a deployment directory
+      exec('cp -R ./src ./deploy');
+
+      console.log('Deployment completed successfully!');
+    });
+  });
+}
+
+// Call the deploy function to start the deployment process
+deploy();
